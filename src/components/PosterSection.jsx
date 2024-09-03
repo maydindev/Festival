@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 export default function PosterSection({ date, festivalData }) {
   /*Challenge
@@ -11,19 +11,39 @@ export default function PosterSection({ date, festivalData }) {
 		   
 		3. Bir grubun önem değerinin 1, 2, 3 veya 4 olmasına bağlı olarak, paragraf elementi sırasıyla "giant", "big", "medium" veya "small" class adını almalıdır. 
 		
-		4. Bu görevleri doğru bir şekilde tamamlarsanız, 1 Haziran bölümünde yalnızca 1 Haziran 'da çalan grupları görmelisiniz; en önemlileri üstte büyük puntolarla, daha az önemlileri ise altta daha küçük puntolarla yer almalıdır. Aynı şey 2 ve 3 Haziran için de geçerlidir. Sayfanın altında otomatik olarak bir footer da görünmelidir. 
-
-
-
-		   
+		4. Bu görevleri doğru bir şekilde tamamlarsanız, 1 Haziran bölümünde yalnızca 1 Haziran 'da çalan grupları görmelisiniz; en önemlileri üstte büyük puntolarla, daha az önemlileri ise altta daha küçük puntolarla yer almalıdır. Aynı şey 2 ve 3 Haziran için de geçerlidir. Sayfanın altında otomatik olarak bir footer da görünmelidir. 	   
  */
 
   return (
-    <div className='lineup-container'>
-      <div className='day-container'>
+    <div className="lineup-container">
+      <div className="day-container">
         <h3>{date}</h3>
       </div>
+      {festivalData
+        .filter((item) => item.date === date)
+        .sort((a, b) => a.importance - b.importance)
+        .map((item) => (
+          <>
+            <p
+              className={
+                item.importance === 1
+                  ? "giant"
+                  : item.importance === 2
+                  ? "big"
+                  : item.importance === 3
+                  ? "medium"
+                  : "small"
+              }
+            >
+              {item.name}
+            </p>
+          </>
+        ))}
+    </div>
+  );
+}
 
+      /*
       <p className='giant'>Süper Büyük Önemli Grup</p>
       <p className='giant'>Başka Biri</p>
       <p className='big'>Biraz Daha Az Önemli Grup</p>
@@ -31,6 +51,4 @@ export default function PosterSection({ date, festivalData }) {
       <p className='medium'>Orta Dereceli Grup</p>
       <p className='medium'>Başka Biri</p>
       <p className='small'>O kadar da önemli olmayan bir grup</p>
-    </div>
-  )
-}
+      */
